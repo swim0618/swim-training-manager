@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/swim
+    url: jdbc:postgresql://127.0.0.1:15432/swim
     username: swim_user
     password: swim_pass
   jpa:
