@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String home() {
-        return "index"; // templates/index.html
+    public String root() {
+        return "redirect:/top";
+    }
+
+    @GetMapping("/top")
+    public String top() {
+        return "top"; // templates/top.html を表示
     }
 }
