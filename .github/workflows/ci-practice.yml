@@ -1,0 +1,23 @@
+name: CI (practice)
+
+on:
+  push:
+    branches: [ "practice" ]
+  pull_request:
+    branches: [ "practice" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build & Test
+        run: mvn -B test package
