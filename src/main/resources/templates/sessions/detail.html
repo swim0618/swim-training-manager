@@ -7,66 +7,15 @@
 <body>
   <h1>練習記録詳細</h1>
 
-  <p>
-    <a th:href="@{/sessions}">一覧へ戻る</a> |
-    <a th:href="@{/sessions/{id}/edit(id=${session.id})}">編集</a>
-  </p>
+  <p><a th:href="@{/sessions}">一覧へ戻る</a></p>
 
-  <table border="1">
-    <tr>
-      <th>ID</th>
-      <td th:text="${session.id}"></td>
-    </tr>
-    <tr>
-      <th>開始日時</th>
-      <td th:text="${#temporals.format(session.startAt, 'yyyy-MM-dd HH:mm')}"></td>
-    </tr>
-    <tr>
-      <th>終了日時</th>
-      <td th:text="${session.endAt != null ? #temporals.format(session.endAt, 'yyyy-MM-dd HH:mm') : '-'}"></td>
-    </tr>
-    <tr>
-      <th>タイトル</th>
-      <td th:text="${session.title}"></td>
-    </tr>
-    <tr>
-      <th>メモ</th>
-      <td th:text="${session.notes}"></td>
-    </tr>
-  </table>
+  <p>ID: <span th:text="${session.id}"></span></p>
+  <p>タイトル: <span th:text="${session.title}"></span></p>
+  <p>開始日時: <span th:text="${session.startAt}"></span></p>
+  <p>終了日時: <span th:text="${session.endAt}"></span></p>
+  <p>メモ: <span th:text="${session.notes}"></span></p>
 
-  <h2>セット一覧</h2>
-
-  <table border="1">
-    <thead>
-      <tr>
-        <th>順番</th>
-        <th>距離</th>
-        <th>本数</th>
-        <th>インターバル</th>
-        <th>泳法</th>
-        <th>強度</th>
-        <th>メモ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:if="${#lists.isEmpty(sets)}">
-        <td colspan="7">セットはまだ登録されていません</td>
-      </tr>
-      <tr th:each="set : ${sets}">
-        <td th:text="${set.orderNo}"></td>
-        <td th:text="${set.distanceM}"></td>
-        <td th:text="${set.reps}"></td>
-        <td th:text="${set.intervalSec != null ? set.intervalSec : '-'}"></td>
-        <td th:text="${set.stroke != null ? set.stroke : '-'}"></td>
-        <td th:text="${set.intensity != null ? set.intensity : '-'}"></td>
-        <td th:text="${set.memo}"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <form th:action="@{/sessions/{id}/delete(id=${session.id})}" method="post" style="margin-top: 16px;">
-    <button type="submit" onclick="return confirm('この練習記録を削除しますか？')">削除</button>
-  </form>
+  <h2>セット件数</h2>
+  <p th:text="${#lists.size(sets)}"></p>
 </body>
 </html>

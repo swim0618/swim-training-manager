@@ -23,12 +23,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="session : ${sessions}">
-        <td th:text="${#temporals.format(session.startAt, 'yyyy-MM-dd HH:mm')}"></td>
-        <td th:text="${session.endAt != null ? #temporals.format(session.endAt, 'yyyy-MM-dd HH:mm') : '-'}"></td>
-        <td th:text="${session.title}"></td>
-        <td th:text="${session.notes}"></td>
-        <td><a th:href="@{/sessions/{id}(id=${session.id})}">詳細</a></td>
+      <tr th:each="trainingSession : ${sessions}">
+        <td th:text="${trainingSession.startAt}"></td>
+        <td th:text="${trainingSession.endAt}"></td>
+        <td th:text="${trainingSession.title}"></td>
+        <td th:text="${trainingSession.notes}"></td>
+        <td>
+          <a th:href="@{/sessions/{id}(id=${trainingSession.id})}">詳細</a>
+        </td>
       </tr>
     </tbody>
   </table>
