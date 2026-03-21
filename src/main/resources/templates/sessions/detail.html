@@ -7,15 +7,57 @@
 <body>
   <h1>練習記録詳細</h1>
 
-  <p><a th:href="@{/sessions}">一覧へ戻る</a></p>
+  <p>
+    <a th:href="@{/sessions}">一覧へ戻る</a> |
+    <a th:href="@{/sessions/{id}/edit(id=${trainingSession.id})}">編集</a> |
+    <a th:href="@{/sessions/{sessionId}/sets/new(sessionId=${trainingSession.id})}">セット追加</a>
+  </p>
 
-  <p>ID: <span th:text="${session.id}"></span></p>
-  <p>タイトル: <span th:text="${session.title}"></span></p>
-  <p>開始日時: <span th:text="${session.startAt}"></span></p>
-  <p>終了日時: <span th:text="${session.endAt}"></span></p>
-  <p>メモ: <span th:text="${session.notes}"></span></p>
+  <p>ID: <span th:text="${trainingSession.id}"></span></p>
+  <p>タイトル: <span th:text="${trainingSession.title}"></span></p>
+  <p>開始日時: <span th:text="${trainingSession.startAt}"></span></p>
+  <p>終了日時: <span th:text="${trainingSession.endAt}"></span></p>
+  <p>メモ: <span th:text="${trainingSession.notes}"></span></p>
 
-  <h2>セット件数</h2>
-  <p th:text="${#lists.size(sets)}"></p>
+  <h2>セット一覧</h2>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>順番</th>
+        <th>距離</th>
+        <th>本数</th>
+        <th>インターバル</th>
+        <th>泳法</th>
+        <th>強度</th>
+        <th>メモ</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${#lists.isEmpty(sets)}">
+        <td colspan="8">セットはまだ登録されていません</td>
+      </tr>
+      <tr th:each="trainingSet : ${sets}">
+        <td th:text="${trainingSet.orderNo}"></td>
+        <td th:text="${trainingSet.distanceM}"></td>
+        <td th:text="${trainingSet.reps}"></td>
+        <td th:text="${trainingSet.intervalSec}"></td>
+        <td th:text="${trainingSet.stroke}"></td>
+        <td th:text="${trainingSet.intensity}"></td>
+        <td th:text="${trainingSet.memo}"></td>
+        <td>
+          <a th:href="@{/sets/{id}/edit(id=${trainingSet.id})}">編集</a>
+          <form th:action="@{/sets/{id}/delete(id=${trainingSet.id})}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('このセットを削除しますか？')">削除</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form th:action="@{/sessions/{id}/delete(id=${trainingSession.id})}" method="post" style="margin-top: 16px;">
+    <button type="submit" onclick="return confirm('この練習記録を削除しますか？')">削除</button>
+  </form>
 </body>
 </html>

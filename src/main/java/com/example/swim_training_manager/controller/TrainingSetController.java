@@ -23,7 +23,7 @@ public class TrainingSetController {
     }
 
     @GetMapping("/sessions/{sessionId}/sets/new")
-    public String newForm(@PathVariable Long sessionId, Model model) {
+    public String newForm(@PathVariable("sessionId") Long sessionId, Model model) {
         model.addAttribute("trainingSetForm", new TrainingSetForm());
         model.addAttribute("formAction", "/sessions/" + sessionId + "/sets");
         model.addAttribute("pageTitle", "セット追加");
@@ -35,8 +35,8 @@ public class TrainingSetController {
 
     @PostMapping("/sessions/{sessionId}/sets")
     public String create(
-            @PathVariable Long sessionId,
-            @Valid @ModelAttribute TrainingSetForm trainingSetForm,
+            @PathVariable("sessionId") Long sessionId,
+            @Valid @ModelAttribute("trainingSetForm") TrainingSetForm trainingSetForm,
             BindingResult bindingResult,
             Principal principal,
             Model model
@@ -55,7 +55,7 @@ public class TrainingSetController {
     }
 
     @GetMapping("/sets/{id}/edit")
-    public String editForm(@PathVariable Long id, Principal principal, Model model) {
+    public String editForm(@PathVariable("id") Long id, Principal principal, Model model) {
         TrainingSet trainingSet = trainingSetService.findById(principal.getName(), id);
         Long sessionId = trainingSet.getTrainingSession().getId();
 
@@ -70,8 +70,8 @@ public class TrainingSetController {
 
     @PostMapping("/sets/{id}")
     public String update(
-            @PathVariable Long id,
-            @Valid @ModelAttribute TrainingSetForm trainingSetForm,
+            @PathVariable("id") Long id,
+            @Valid @ModelAttribute("trainingSetForm") TrainingSetForm trainingSetForm,
             BindingResult bindingResult,
             Principal principal,
             Model model
@@ -93,7 +93,7 @@ public class TrainingSetController {
     }
 
     @PostMapping("/sets/{id}/delete")
-    public String delete(@PathVariable Long id, Principal principal) {
+    public String delete(@PathVariable("id") Long id, Principal principal) {
         TrainingSet trainingSet = trainingSetService.findById(principal.getName(), id);
         Long sessionId = trainingSet.getTrainingSession().getId();
 

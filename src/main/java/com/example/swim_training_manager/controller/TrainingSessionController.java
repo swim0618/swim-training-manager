@@ -55,7 +55,7 @@ public class TrainingSessionController {
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Principal principal, Model model) {
         TrainingSession session = trainingSessionService.findById(principal.getName(), id);
-        model.addAttribute("session", session);
+        model.addAttribute("trainingSession", session);
         model.addAttribute("sets", trainingSessionService.findSets(id, principal.getName()));
         return "sessions/detail";
     }
